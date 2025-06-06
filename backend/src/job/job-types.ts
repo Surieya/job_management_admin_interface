@@ -1,0 +1,1 @@
+export type JobType = 'Full-time' | 'Part-time' | 'Contract' | 'Internship';
