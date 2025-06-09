@@ -1,22 +1,196 @@
 @import "tailwindcss";
 
 
+
+@font-face {
+  font-family:Sato;
+  src: url("../public/fonts/Satoshi-Medium.otf");
+}
+
+
 @theme {
+     --font-satoshi:Sato,"sans-serif";
+
     --color-heading_black:#000000;
     --color-primary_blue:#00AAFF;
     --color-secondary_blue:#B0D9FF;
     --color-text_grey:#555555;
+    --color-text_grey_secondary:#636363;
     --color-violet-start:#A128FF;
     --color-violet-end:#6100AD;
     --color-shadow-grey:#7F7F7F;
+    --color-grey_gradient_from:#FEFEFD;
+    --color-grey_gradient_to:#F1F1F1;
+    --color-shadow_grey:#949494;
+    --color-border_grey_secondary:#BCBCBC;
+    --color-border_grey:#7F7F7F;
+
+
+
+    --breakpoint-md: 900px;
+    --breakpoint-sm: 600px;
 
 }
 
 .input-field {
-   @apply w-full px-3 py-2 border border-gray-300 rounded-md 
-          focus:outline-none ring-2 ring-transparent 
-          focus:ring-2 focus:ring-black transition-all placeholder-gray-400;
+   @apply w-full px-3 py-2 rounded-[10px] outline-none;
 }
+
+.input-field-modified {
+   @apply w-full rounded-[10px] placeholder-gray-400;
+}
+
+
+/* globals.css */
+/* .range-custom {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background:grey;
+  border-radius: 9999px;
+  position: relative;
+} */
+
+.custom-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: black;
+  border-radius: 50%;
+  border: 2px solid white; /* White border creates the inner white ring */
+  cursor: pointer;
+  margin-top: -12px; /* To align thumb vertically with track */
+}
+
+.custom-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: black;
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.custom-range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 9999px;
+  background-color: #d1d5db; /* Same as track */
+}
+
+.custom-range::-moz-range-track {
+  height: 4px;
+  border-radius: 9999px;
+  background-color: black;
+}
+
+/* .range::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color:white;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+} */
+
+
+
+
+
+.range-custom {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 9999px;
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+}
+
+.range-custom::-webkit-slider-runnable-track {
+  /* background: #d3d3d3; */
+  height: 4px;
+  border-radius: 9999px;
+}
+
+/* Chrome, Safari, Edge */
+.range-custom::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: url('/slider_thumb.svg') no-repeat center center;
+  background-size: contain;
+  width: 20px;
+  height: 20px;
+  border: none;
+  cursor: pointer;
+  margin-top: -11px; /* align the thumb vertically */
+  position: relative;
+}
+
+.range-custom::-webkit-slider-thumb::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 4px;
+  width: 1000px; /* big number to cover full track */
+  background: black;
+  z-index: -1;
+  transform: translateY(-50%);
+}
+
+/* Firefox */
+.range-custom::-moz-range-thumb {
+  background: url('/slider_thumb.svg') no-repeat center center;
+  background-size: contain;
+  width: 20px;
+  height: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.datepicker-toggle {
+  display: inline-block;
+  position: relative;
+  width: 18px;
+  height: 19px;
+}
+.datepicker-toggle-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/date.svg');
+}
+
+.datepicker-input {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.datepicker-input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 10px;
+  cursor: pointer;
+}
+
+
+
+
+
+
 
 /* :root {
   --background: #ffffff;

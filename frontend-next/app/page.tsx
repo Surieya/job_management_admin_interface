@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import FilterBar, { FilterState } from '../components/FilterBar';
 import JobCard from '../components/JobCard';
 import { CreateJobFormData, CreateJobModal } from '../components/CreateJobModal';
+import useDebouncedEffect from "../components/UseDebounce";
 import axios from 'axios';
 
 export default function Page() {
@@ -12,7 +13,7 @@ export default function Page() {
     jobRole: '',
     location: '',
     jobType: '',
-    salaryRange: [0, 20000],
+    salaryRange: [0, 210000],
   });
 
   const [jobs, setJobs] = useState<any[]>([]);
@@ -20,53 +21,72 @@ export default function Page() {
   const [createModalOpened, setCreateModalOpened] = useState(false);
 
   // Fetch jobs when filters change
-  useEffect(() => {
-    async function fetchJobs() {
-      setLoading(true);
+  // useEffect(() => {
+  //   async function fetchJobs() {
+  //     setLoading(true);
 
-      const params: any = {};
-      if (filter.jobRole) params.job_title = filter.jobRole;
-      if (filter.location) params.location = filter.location;
-      if (filter.jobType) params.job_type = filter.jobType;
-      if (filter.salaryRange) {
-        params.min_salary = filter.salaryRange[0];
-        params.max_salary = filter.salaryRange[1];
-      }
+  //     const params: any = {};
+  //     if (filter.jobRole) params.job_title = filter.jobRole;
+  //     if (filter.location) params.location = filter.location;
+  //     if (filter.jobType) params.job_type = filter.jobType;
+  //     if (filter.salaryRange) {
+  //       params.min_salary = filter.salaryRange[0];
+  //     }
 
-      try {
-        const res = await axios.get('/api/jobs', { params });
-        setJobs(res.data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
+  //     try {
+  //       const res = await axios.get('/api/jobs', { params });
+  //       // console.log(res);
+  //       setJobs(res.data);
+  //       console.log(res.data);
+  //     } catch (err) {
+  //       console.error(err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  //   fetchJobs();
+  // }, [filter]);
+
+  useDebouncedEffect(() => {
+  async function fetchJobs() {
+    setLoading(true);
+
+    const params: any = {};
+    if (filter.jobRole) params.job_title = filter.jobRole;
+    if (filter.location) params.location = filter.location;
+    if (filter.jobType) params.job_type = filter.jobType;
+    if (filter.salaryRange) {
+      params.min_salary = filter.salaryRange[0];
     }
-    fetchJobs();
-  }, [filter]);
 
-  async function handleCreateJob(data: CreateJobFormData) {
     try {
-      await axios.post('/api/jobs', {
-        ...data,
-        min_salary: data.min_salary,
-        max_salary: data.max_salary,
-      });
-      setCreateModalOpened(false);
-      // Refresh jobs after creation
-      setFilter({ ...filter }); // trigger useEffect
+      const res = await axios.get('/api/jobs', { params });
+      setJobs(res.data);
+      console.log(res.data);
     } catch (err) {
-      console.error('Failed to create job', err);
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
   }
 
+  fetchJobs();
+}, [filter], 500);
+
+  
+
   return (
     <>
-      <Navbar onOpenCreateModal={() => setCreateModalOpened(true)} />
+      <section className='header flex w-full flex-col pt-6 gap-4 shadow-[0px_0px_14px_rgba(198,191,191,0.25)]'>
+            <Navbar onOpenCreateModal={() => setCreateModalOpened(true)} />
+            <FilterBar onFilterChange={setFilter} />
+      </section>
+
+   
 
       <main className="mx-auto px-4 pt-20 pb-10 w-full">
 
-        <FilterBar onFilterChange={setFilter} />
+        
 
         {loading ? (
           <div className="flex justify-center mt-16">
@@ -96,18 +116,25 @@ export default function Page() {
             <p className="text-gray-500 text-lg">No jobs found matching the filters.</p>
           </div>
         ) : (
-          <div className="flex flex-col space-y-6 mt-8">
+          
+
+       <div className='md:px-4'>
+         <div className="flex flex-wrap gap-10 md:gap-4 px-8 items-center justify-center md:justify-start">
             {jobs.map((job) => (
               <JobCard key={job.id} job={job} />
             ))}
-          </div>
+      </div>
+       </div>
+        
         )}
       </main>
 
       <CreateJobModal
         opened={createModalOpened}
         onClose={() => setCreateModalOpened(false)}
-        onSubmit={handleCreateJob}
+        filter = {filter}
+        setFilter = {setFilter}
+        // onSubmit={handleCreateJob}
       />
     </>
   );

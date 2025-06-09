@@ -19,3 +19,9 @@ export function getTimeAgo(date: Date): string {
   }
   return 'just now';
 }
+
+
+export function getAverageSalary(minSalary: number, maxSalary: number): number {
+  const average = (minSalary + maxSalary) / 2;
+  return Math.ceil(average/100000);
+}

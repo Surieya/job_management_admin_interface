@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: Sato;
+    src: url("../src/assets/fonts/Satoshi-Medium.otf");
+}
+
+
+
+@theme {
+    --font-satoshi:Sato,"sans-serif";
+
+
+
+    --color-heading_black:#000000;
+    --color-primary_blue:#00AAFF;
+    --color-secondary_blue:#B0D9FF;
+    --color-text_grey:#555555;
+    --color-grey_gradient_from:#FEFEFD;
+    --color-grey_gradient_to:#F1F1F1;
+    --color-shadow_grey:#949494;
+
+}
