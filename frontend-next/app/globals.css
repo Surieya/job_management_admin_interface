@@ -124,7 +124,7 @@
   height: 20px;
   border: none;
   cursor: pointer;
-  margin-top: -11px; /* align the thumb vertically */
+  margin-top: -21px; /* align the thumb vertically */
   position: relative;
 }
 

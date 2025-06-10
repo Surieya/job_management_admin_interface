@@ -115,7 +115,7 @@ const [filledPercent, setFilledPercent] = useState(0);
     </div>
     
     <label className="text-sm font-semibold mb-4 text-gray-700 flex justify-between">
-      <span className='text-[14px] lg:text-[16px] md:ml-[-10px]'>Salary Per Month:</span>
+      <span className='text-[14px] lg:text-[16px] md:ml-[-10px] mb-5'>Salary Per Month:</span>
       <span className=" text-[14px] lg:text-[16px] font-bold">{filters.salaryRange[0] == 0 ? 0 : `₹${filters.salaryRange[0]/1000}k - ₹${(filters.salaryRange[0]+30000)/1000}k`}</span>
     </label>
     <input
